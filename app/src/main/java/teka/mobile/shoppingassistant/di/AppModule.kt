@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import teka.mobile.shoppingassistant.data.TodoDao
 import teka.mobile.shoppingassistant.data.TodoDatabase
 import teka.mobile.shoppingassistant.data.TodoRepository
 import teka.mobile.shoppingassistant.data.TodoRepositoryImpl
