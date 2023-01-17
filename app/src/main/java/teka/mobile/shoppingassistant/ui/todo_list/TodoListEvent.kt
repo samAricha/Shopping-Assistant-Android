@@ -3,7 +3,7 @@ package teka.mobile.shoppingassistant.ui.todo_list
 import teka.mobile.shoppingassistant.data.Todo
 
 //this is for any event that happens on the screen i.e
-//TodoList screeen N/B: Do this for every single screen
+//TodoList screen N/B: Do this for every single screen
 sealed class TodoListEvent{
     //what kind of user interactions can we do
     //in the todoList screen.

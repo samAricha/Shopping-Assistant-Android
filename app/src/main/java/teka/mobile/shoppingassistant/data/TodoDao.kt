@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TodoDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)//this line will update the data when it finds its present
     suspend fun insertTodo(todo: Todo)
 
     @Query("SELECT * FROM todo WHERE id= :id")
