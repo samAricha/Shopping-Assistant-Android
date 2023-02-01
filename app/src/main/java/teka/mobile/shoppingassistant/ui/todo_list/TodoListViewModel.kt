@@ -31,10 +31,10 @@ class TodoListViewModel @Inject constructor(
 
     fun onEvent(event: TodoListEvent){
         when(event){
-            is TodoListEvent.onTodoClick ->{
+            is TodoListEvent.OnTodoClick ->{
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TODO+"?todoId=${event.todo.id}"))
             }
-            is TodoListEvent.onDeleteTodoClick ->{
+            is TodoListEvent.OnDeleteTodoClick ->{
                 viewModelScope.launch {
                     deletedTodo = event.todo
                     repository.deleteTodo(event.todo)
@@ -44,22 +44,22 @@ class TodoListViewModel @Inject constructor(
                     ))
                 }
             }
-            is TodoListEvent.onAddTodoClick -> {
+            is TodoListEvent.OnAddTodoClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TODO))
             }
-            is TodoListEvent.onUndoDeleteClick -> {
+            is TodoListEvent.OnUndoDeleteClick -> {
                 deletedTodo?.let { todo ->
                     viewModelScope.launch {
                         repository.insertTodo(todo)
                     }
                 }
             }
-            is TodoListEvent.onDoneChange -> {
+            is TodoListEvent.OnDoneChange -> {
                 //the following line basically launches a coroutine
                 viewModelScope.launch {
                     repository.insertTodo(
                         event.todo.copy(//in here we are copying the id of the todo for us to update it
-                            isShopped = event.isShopped
+                            isShopped = event.isDone
                         )
                     )
                 }

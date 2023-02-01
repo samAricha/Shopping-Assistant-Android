@@ -28,7 +28,7 @@ class AddEditTodoViewModel @Inject constructor(
     var title by mutableStateOf("")
         private set
 
-    var description = mutableStateOf("")
+    var description by mutableStateOf("")
         private set
 
     //the following lines are for the events we send
@@ -44,14 +44,51 @@ class AddEditTodoViewModel @Inject constructor(
             viewModelScope.launch {
                 repository.getTodoById(todoId)?.let { todo ->
                     title = todo.title
-
-
-
+                    description = todo.description ?: ""
+                    this@AddEditTodoViewModel.todo = todo
                 }
             }
         }
+    }
 
+    fun onEvent(event: AddEditTodoEvent){
+       when(event){
+           is AddEditTodoEvent.OnTitleChange -> {
+                title = event.title
+           }
+           is AddEditTodoEvent.OnDescriptionChange -> {
+               description = event.description
+           }
+           is AddEditTodoEvent.OnSaveTodoClick -> {
+               viewModelScope.launch {
+                   if(title.isBlank()){
+                        sendUiEvent(UiEvent.ShowSnackBar(
+                            message = "The Title can't be empty"
+                        ))
+                       return@launch
+                   }
+                   repository.insertTodo(
+                       Todo(
+                           title = title,
+                           description = description,
+                           isShopped = todo?.isShopped ?: false,
+                           id = todo?.id
+                       )
+                   )
+                   sendUiEvent(UiEvent.PopBackStack)
+               }
+           }
+       }
+    }
 
+    //function for sending an event to a channel
+    private fun sendUiEvent(event: UiEvent){
+        //the following line binds the lifetime of this coroutine
+        //to this view-model lifecycle.
+        viewModelScope.launch {
+            _uiEvent.send(event)//we are sending a route to a channel
+
+        }
     }
 
 }

@@ -8,10 +8,11 @@ sealed class TodoListEvent{
     //what kind of user interactions can we do
     //in the todoList screen.
 
-    data class onTodoClick(val todo: Todo): TodoListEvent()
-    data class onDeleteTodoClick(val todo: Todo): TodoListEvent()
-    data class onDoneChange(val todo: Todo, val isShopped: Boolean): TodoListEvent()
-    object onAddTodoClick: TodoListEvent()
-    object onUndoDeleteClick: TodoListEvent()
+    data class OnDeleteTodoClick(val todo: Todo): TodoListEvent()
+    data class OnDoneChange(val todo: Todo, val isDone: Boolean): TodoListEvent()
+    object OnUndoDeleteClick: TodoListEvent()
+    data class OnTodoClick(val todo: Todo): TodoListEvent()
+    object OnAddTodoClick: TodoListEvent()
+
 }
 

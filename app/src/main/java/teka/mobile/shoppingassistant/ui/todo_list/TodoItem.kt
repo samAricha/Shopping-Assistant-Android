@@ -38,7 +38,7 @@ fun TodoItem(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(onClick = {
-                    onEvent(TodoListEvent.onDeleteTodoClick(todo))
+                    onEvent(TodoListEvent.OnDeleteTodoClick(todo))
                 }) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
                 }
@@ -52,7 +52,7 @@ fun TodoItem(
 
          Checkbox(checked = todo.isShopped,
              onCheckedChange = { isChecked ->
-                 onEvent(TodoListEvent.onDoneChange(todo, isChecked))
+                 onEvent(TodoListEvent.OnDoneChange(todo, isChecked))
 
              })
 
